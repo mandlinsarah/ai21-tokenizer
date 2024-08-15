@@ -27,10 +27,7 @@ class TokenizerFactory:
         cls,
         tokenizer_name: str = PreTrainedTokenizers.J2_TOKENIZER,
     ) -> BaseTokenizer:
-        if (
-            tokenizer_name == PreTrainedTokenizers.JAMBA_INSTRUCT_TOKENIZER
-            or tokenizer_name == PreTrainedTokenizers.JAMBA_TOKENIZER
-        ):
+        if tokenizer_name in (PreTrainedTokenizers.JAMBA_INSTRUCT_TOKENIZER, PreTrainedTokenizers.JAMBA_TOKENIZER):
             return JambaInstructTokenizer(model_path=JAMBA_TOKENIZER_HF_PATH, cache_dir=os.getenv(_ENV_CACHE_DIR_KEY))
 
         if tokenizer_name == PreTrainedTokenizers.J2_TOKENIZER:
@@ -43,10 +40,7 @@ class TokenizerFactory:
         cls,
         tokenizer_name: str = PreTrainedTokenizers.J2_TOKENIZER,
     ) -> AsyncBaseTokenizer:
-        if (
-            tokenizer_name == PreTrainedTokenizers.JAMBA_INSTRUCT_TOKENIZER
-            or tokenizer_name == PreTrainedTokenizers.JAMBA_TOKENIZER
-        ):
+        if tokenizer_name in (PreTrainedTokenizers.JAMBA_INSTRUCT_TOKENIZER, PreTrainedTokenizers.JAMBA_TOKENIZER):
             return await AsyncJambaInstructTokenizer.create(
                 model_path=JAMBA_TOKENIZER_HF_PATH, cache_dir=os.getenv(_ENV_CACHE_DIR_KEY)
             )
@@ -57,3 +51,4 @@ class TokenizerFactory:
             )
 
         raise ValueError(f"Tokenizer {tokenizer_name} is not supported")
+
