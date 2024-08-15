@@ -4,7 +4,6 @@ import asyncio
 from abc import ABC, abstractmethod
 from typing import List, Union
 
-
 class BaseTokenizer(ABC):
     """
     Base class for tokenizers.
@@ -14,7 +13,7 @@ class BaseTokenizer(ABC):
     """
 
     @abstractmethod
-    def encode(self, text: str, **kwargs) -> List[int]:
+    def encode(self, text: str, **kwargs: any) -> List[int]:
         """
         Encodes the given text into a list of token IDs.
 
@@ -28,7 +27,7 @@ class BaseTokenizer(ABC):
         pass
 
     @abstractmethod
-    def decode(self, token_ids: List[int], **kwargs) -> str:
+    def decode(self, token_ids: List[int], **kwargs: any) -> str:
         """
         Decodes the given list of token IDs into a string.
 
@@ -55,7 +54,7 @@ class BaseTokenizer(ABC):
         pass
 
     @abstractmethod
-    def convert_ids_to_tokens(self, token_ids: Union[int, List[int]], **kwargs) -> Union[str, List[str]]:
+    def convert_ids_to_tokens(self, token_ids: Union[int, List[int]], **kwargs: any) -> Union[str, List[str]]:
         """
         Converts the given token IDs into tokens.
 
@@ -89,7 +88,7 @@ class AsyncBaseTokenizer(ABC):
     """
 
     @abstractmethod
-    async def encode(self, text: str, **kwargs) -> List[int]:
+    async def encode(self, text: str, **kwargs: any) -> List[int]:
         """
         Encodes the given text into a list of token IDs.
 
@@ -103,7 +102,7 @@ class AsyncBaseTokenizer(ABC):
         pass
 
     @abstractmethod
-    async def decode(self, token_ids: List[int], **kwargs) -> str:
+    async def decode(self, token_ids: List[int], **kwargs: any) -> str:
         """
         Decodes the given list of token IDs into a string.
 
@@ -130,7 +129,7 @@ class AsyncBaseTokenizer(ABC):
         pass
 
     @abstractmethod
-    async def convert_ids_to_tokens(self, token_ids: Union[int, List[int]], **kwargs) -> Union[str, List[str]]:
+    async def convert_ids_to_tokens(self, token_ids: Union[int, List[int]], **kwargs: any) -> Union[str, List[str]]:
         """
         Converts the given token IDs into tokens.
 
@@ -154,5 +153,6 @@ class AsyncBaseTokenizer(ABC):
         """
         pass
 
-    async def _make_async_call(self, callback_func, **kwargs):
+    async def _make_async_call(self, callback_func, **kwargs: any) -> any:
         return await asyncio.get_running_loop().run_in_executor(executor=None, func=lambda: callback_func(**kwargs))
+
